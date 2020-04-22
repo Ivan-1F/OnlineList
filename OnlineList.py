@@ -47,17 +47,25 @@ def show_list(server, info):
             msg += " §6(bot)§r"
         server.reply(info, msg)
 
+def get_online_list():
+    global data
+    load_data()
+    ret = []
+    for i in range(0, len(data)):
+        ret.append(data[i]["name"])
+    return ret
+
 def on_player_joined(server, player):
     global data
     load_data()
     add_data(player, False)
-    print("[OnlineList]" + player + " joined the game")
+    # print("[OnlineList]" + player + " joined the game")
 
 def on_player_left(server, player):
     global data
     load_data()
     delete_data(player)
-    print("[OnlineList]" + player + " left the game")
+    # print("[OnlineList]" + player + " left the game")
 
 def on_info(server, info):
     content = info.content
