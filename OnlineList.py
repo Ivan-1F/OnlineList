@@ -10,7 +10,7 @@ start_with = []
 blacklist = []
 whitelist = []
 
-def load_config(server):
+def load_config():
     global carpet_player
     global start_with
     global blacklist
@@ -93,12 +93,26 @@ def on_player_joined(server, player):
     global whitelist
     load_config()
     load_data()
+    lplayer = player.lower()
+    print(lplayer)
+    for i in range(0, len(whitelist)):
+        if lplayer == whitelist[i]:
+            add_data(player, False)
+            return
+    for i in range(0, len(blacklist)):
+        if lplayer == blacklist[i]:
+            add_data(player, True)
+            return
+    for i in range(0, len(start_with)):
+        if lplayer.startswith(start_with[i]):
+            add_data(player, True)
+            return
     add_data(player, False)
     # print("[OnlineList]" + player + " joined the game")
 
 def on_player_left(server, player):
     global data
-    load_data(server)
+    load_data()
     delete_data(player)
     # print("[OnlineList]" + player + " left the game")
 
@@ -109,11 +123,8 @@ def on_info(server, info):
         return
     if content == Prefix:
         show_list(server, info)
-    if content == Prefix + " reload":
-        load_config(server)
-        server.say("[OnlineList] §a配置文件加载成功§r")
-    else:
-        server.reply(info, "§c格式错误§r")
         return
+    server.reply(info, "§c格式错误§r")
+    return
 
 
