@@ -1,5 +1,5 @@
 {
-    "carpet_player" : false,
+    "carpet_player" : true,
     "start_with":
     [
         "bot"
