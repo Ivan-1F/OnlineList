@@ -76,10 +76,7 @@ def show_list(server, info):
 def get_online_list():
     global data
     load_data()
-    ret = []
-    for i in range(0, len(data)):
-        ret.append(data[i]["name"])
-    return ret
+    return data
 
 def on_load(server, module):
     server.add_help_message(Prefix, "获取在线玩家列表并自动识别bot")
