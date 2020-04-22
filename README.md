@@ -17,6 +17,8 @@
 1. 使用`server.get_plugin_instance("OnlineList")`获取插件实例
 2. 使用`List = OnlineList.get_online_list()`获取在线玩家列表
 
+一个运用了这个API的插件：[Where](https://github.com/wyf0762/Where)
+
 ## 返回数据
 
 - 数据类型：List
