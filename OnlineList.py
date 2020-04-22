@@ -9,6 +9,7 @@ carpet_player = False
 start_with = []
 blacklist = []
 whitelist = []
+flag = True
 
 def load_config():
     global carpet_player
@@ -23,7 +24,6 @@ def load_config():
     except:
         return
 
-    print(config)
     carpet_player = config["carpet_player"]
     start_with = config["start_with"]
     blacklist = config["blacklist"]
@@ -86,6 +86,10 @@ def on_load(server, module):
     load_config()
 
 def on_player_joined(server, player):
+    global flag
+    if not flag:
+        add_data(player, True)
+        return
     global data
     global carpet_player
     global start_with
@@ -94,7 +98,6 @@ def on_player_joined(server, player):
     load_config()
     load_data()
     lplayer = player.lower()
-    print(lplayer)
     for i in range(0, len(whitelist)):
         if lplayer == whitelist[i]:
             add_data(player, False)
@@ -117,7 +120,17 @@ def on_player_left(server, player):
     # print("[OnlineList]" + player + " left the game")
 
 def on_info(server, info):
+    # print(info.raw_content)
     content = info.content
+    load_config()
+    if not carpet_player:
+        raw_content = info.raw_content
+        if "[local] logged in with entity id" in raw_content:
+            global flag
+            server.say("假人")
+            flag = False
+            return
+
     splited_content = content.split()
     if splited_content[0] != Prefix:
         return
