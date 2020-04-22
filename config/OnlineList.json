@@ -1,0 +1,13 @@
+{
+    "carpet_player" : false,
+    "start_with":
+    [
+        "bot"
+    ],
+    "blacklist":
+    [
+    ],
+    "whitelist":
+    [
+    ]
+}
