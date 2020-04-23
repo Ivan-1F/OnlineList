@@ -4,6 +4,8 @@ Prefix = "!!online"
 PluginName = "OnlineList"
 DataPath = "plugins/" + PluginName + "/data.json"
 ConfigFilePath = "plugins/config/" + PluginName + ".json"
+
+# global
 data = []
 carpet_player = False
 start_with = []
@@ -28,8 +30,6 @@ def load_config():
     start_with = config["start_with"]
     blacklist = config["blacklist"]
     whitelist = config["whitelist"]
-
-    print("[OnlineList] 配置文件加载成功")
 
 def load_data():
     global data
@@ -85,7 +85,9 @@ def on_load(server, module):
 def on_player_joined(server, player):
     global flag
     if not flag:
+        # carpet_player
         add_data(player, True)
+        # print("bot(carpet_player)")
         return
     global data
     global carpet_player
@@ -98,17 +100,22 @@ def on_player_joined(server, player):
     for i in range(0, len(whitelist)):
         if lplayer == whitelist[i]:
             add_data(player, False)
+            # print("whitelist")
             return
     for i in range(0, len(blacklist)):
         if lplayer == blacklist[i]:
             add_data(player, True)
+            # print("blacklist")
             return
     for i in range(0, len(start_with)):
         if lplayer.startswith(start_with[i]):
             add_data(player, True)
+            # print("startwith " + start_with[i])
             return
+    # normal player
     add_data(player, False)
     # print("[OnlineList]" + player + " joined the game")
+    return
 
 def on_player_left(server, player):
     global data
@@ -117,14 +124,14 @@ def on_player_left(server, player):
     # print("[OnlineList]" + player + " left the game")
 
 def on_info(server, info):
-    # print(info.raw_content)
+    global carpet_player
     content = info.content
-    load_config()
-    if not carpet_player:
+    if carpet_player:
         raw_content = info.raw_content
         if "[local] logged in with entity id" in raw_content:
+            load_config()
             global flag
-            server.say("假人")
+            # server.say("假人")
             flag = False
             return
 
