@@ -83,6 +83,13 @@ def is_bot(player):
 def on_load(server, module):
     server.add_help_message(Prefix, "获取在线玩家列表并自动识别bot")
 
+def on_mcdr_stop(server):
+    print("on_mcdr_stop")
+    global data
+    load_data()
+    data = []
+    save_data()
+
 def on_player_left(server, player):
     global data
     load_data()
