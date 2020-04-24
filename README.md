@@ -1,4 +1,5 @@
 # OnlineList
+
 一个获取在线玩家列表的[MCDReforged](https://github.com/Fallen-Breath/MCDReforged) API，并自动识别[Carpet](https://github.com/gnembon/fabric-carpet)假人
 
 ## 安装
@@ -14,19 +15,25 @@
 ## 使用
 
 1. 使用`OnlineList = server.get_plugin_instance("OnlineList")`获取插件实例
-2. 使用`List = OnlineList.get_online_list()`获取在线玩家列表，返回数据样例：
-3. 使用`OnlineList.is_online(player)`判断一位玩家是否在线
 
-一个运用了这个API的插件：[Where](https://github.com/wyf0762/Where)
+### 方法：OnlineList.get_online_list()
 
-### 返回数据
+获取在线玩家列表
 
-#### OnlineList.get_online_list()
+#### 返回
 
 - 数据类型：List
 - 样例：`[{"name":Alex, "isbot":false}, {"name":Steve, "isbot":false}, {"name":Xe_Kr, "isbot":true}]`
 
-#### OnlineList.is_online(player)
+### 方法：OnlineList.is_online(player)
+
+判断一位玩家是否在线
+
+#### 参数
+
+玩家ID
+
+#### 返回
 
 - 数据类型：Bool
 
