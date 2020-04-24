@@ -88,7 +88,6 @@ def on_player_left(server, player):
 def on_info(server, info):
     raw_content = info.raw_content
     if "[local] logged in with entity id" in raw_content:
-        load_config()
         global flag
         flag = True
         return
