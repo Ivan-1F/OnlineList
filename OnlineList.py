@@ -67,7 +67,7 @@ def is_bot(player):
     online_list = get_online_list()
     for i in range(0, len(online_list)):
         if player == online_list[i]["name"]:
-            if online_list[i]["isbot"]
+            if online_list[i]["isbot"]:
                 return True
     return False
 
