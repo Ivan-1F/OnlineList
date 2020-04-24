@@ -9,6 +9,15 @@ ConfigFilePath = "plugins/config/" + PluginName + ".json"
 data = []
 flag = False
 
+def joined_info(msg):
+    if "logged in with entity id" in msg:
+        if "[local]" in msg:
+            return [True, "bot", msg.split('[')[0]]
+        else:
+            return [True, "player", msg.split('[')[0]]
+    else:
+        return [False]
+
 def load_data():
     global data
     try:
@@ -74,34 +83,24 @@ def is_bot(player):
 def on_load(server, module):
     server.add_help_message(Prefix, "获取在线玩家列表并自动识别bot")
 
-def on_player_joined(server, player):
-    global flag
-    if flag:
-        # carpet_player
-        add_data(player, True)
-        # print("bot(carpet_player)")
-        return
-
-    # normal player
-    add_data(player, False)
-    # print("[OnlineList]" + player + " joined the game")
-    return
-
 def on_player_left(server, player):
     global data
     load_data()
     delete_data(player)
-    # print("[OnlineList]" + player + " left the game")
 
 def on_info(server, info):
-    raw_content = info.raw_content
-    if "[local] logged in with entity id" in raw_content:
-        global flag
-        flag = True
-        return
 
     content = info.content
     splited_content = content.split()
+
+    if info.source == 0 and not info.is_player:
+        player_info = joined_info(content)
+        # server.say(player_info)
+        if player_info[0]:
+            if player_info[1] == "bot":
+                add_data(player_info[2], True)
+            if player_info[1] == "player":
+                add_data(player_info[2], False)
 
     if splited_content[0] != Prefix:
         return
