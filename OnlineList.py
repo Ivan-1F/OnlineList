@@ -63,6 +63,14 @@ def is_online(player):
             return True
     return False
 
+def is_bot(player):
+    online_list = get_online_list()
+    for i in range(0, len(online_list)):
+        if player == online_list[i]["name"]:
+            if online_list[i]["isbot"]
+                return True
+    return False
+
 def on_load(server, module):
     server.add_help_message(Prefix, "获取在线玩家列表并自动识别bot")
 
