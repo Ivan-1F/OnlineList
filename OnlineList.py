@@ -87,7 +87,6 @@ def on_player_left(server, player):
     global data
     load_data()
     delete_data(player)
-    # print("[OnlineList]" + player + " left the game")
 
 def on_info(server, info):
 
@@ -96,9 +95,12 @@ def on_info(server, info):
 
     if info.source == 0 and not info.is_player:
         player_info = joined_info(content)
-        server.say(player_info)
-        # print(player_info)
-        # if player_info[0] and player
+        # server.say(player_info)
+        if player_info[0]:
+            if player_info[1] == "bot":
+                add_data(player_info[2], True)
+            if player_info[1] == "player":
+                add_data(player_info[2], False)
 
     if splited_content[0] != Prefix:
         return
