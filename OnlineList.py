@@ -109,7 +109,7 @@ def on_info(server, info):
             if player_info[1] == "player":
                 add_data(player_info[2], False)
 
-    if splited_content[0] != Prefix:
+    if len(splited_content) == 0 or splited_content[0] != Prefix:
         return
     if content == Prefix:
         show_list(server, info)
